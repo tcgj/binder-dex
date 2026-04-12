@@ -97,7 +97,7 @@ They are treated as generated artifacts and are ignored by git. The relevant scr
 This repo is configured for GitHub Pages deployment at the repo subpath:
 
 ```text
-/tcg-binderdex/
+/binder-dex/
 ```
 
 The Vite `base` setting is already configured for that path, and the GitHub Actions workflow is in:
@@ -111,7 +111,7 @@ To publish:
 The expected Pages URL will be:
 
 ```text
-https://<your-user>.github.io/tcg-binderdex/
+https://<your-user>.github.io/binder-dex/
 ```
 
 ## Status
