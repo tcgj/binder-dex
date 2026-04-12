@@ -1,0 +1,72 @@
+.view {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  min-width: 0;
+}
+
+.label,
+.field span,
+.resultsLabel {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  color: rgba(24, 49, 37, 0.5);
+}
+
+.header h2 {
+  margin: 6px 0 0;
+  font-size: 1.3rem;
+  line-height: 1.15;
+  color: #183125;
+  overflow-wrap: anywhere;
+}
+
+.copy {
+  margin: 10px 0 0;
+  color: rgba(24, 49, 37, 0.72);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field input {
+  border: 1px solid rgba(24, 49, 37, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #183125;
+  padding: 12px 14px;
+  font: inherit;
+}
+
+.field input:focus {
+  outline: 2px solid rgba(170, 220, 164, 0.8);
+  outline-offset: 2px;
+}
+
+.resultsHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.resultsCount {
+  color: rgba(24, 49, 37, 0.62);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}

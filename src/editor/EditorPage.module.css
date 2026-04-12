@@ -1,0 +1,79 @@
+.appShell {
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr) minmax(
+      240px,
+      300px
+    );
+  height: 100dvh;
+  min-height: 0;
+  background: #d8e0cf;
+  overflow-x: clip;
+}
+
+.pageShell {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 20px;
+  min-height: 0;
+  padding: 24px 24px 108px;
+  color: #183125;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(181, 204, 136, 0.4),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at left center,
+      rgba(126, 148, 86, 0.18),
+      transparent 34%
+    ),
+    linear-gradient(180deg, #eef2e4 0%, #d8dfcc 100%);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+}
+
+.contextBlock {
+  min-width: 0;
+}
+
+.contextBlock h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2vw, 1.7rem);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.pageContext {
+  margin: 6px 0 0;
+  color: rgba(24, 49, 37, 0.62);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.pageViewport {
+  container-type: size;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+@media (max-width: 1280px) {
+  .appShell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .pageShell {
+    padding: 18px 18px 126px;
+  }
+}

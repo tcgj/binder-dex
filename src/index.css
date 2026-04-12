@@ -1,0 +1,60 @@
+:root {
+  font-family: 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #f4f7ef;
+  background: #152019;
+  --panel-gutter: 16px;
+  --panel-tab-width: 42px;
+  --panel-tab-height: 78px;
+  --panel-tab-radius: 16px;
+  --toolbar-bottom-offset: 20px;
+  --toolbar-mobile-bottom-offset: 14px;
+  --toolbar-clearance: 74px;
+  --toolbar-mobile-clearance: 74px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #152019;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+body,
+button,
+input {
+  font: inherit;
+}
+
+button,
+input {
+  appearance: none;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(170, 220, 164, 0.8);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
