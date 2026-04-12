@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "concurrently -n css,vite -c magenta,cyan \"npm:css:types:watch\" \"npm:dev:vite -- --host 0.0.0.0\"",
     "dev:vite": "vite",
-    "build": "npm run css:types:check && tsc -b && vite build",
-    "typecheck": "npm run css:types:check && tsc -b",
-    "lint": "npm run css:types:check && eslint .",
+    "build": "npm run css:types && tsc -b && vite build",
+    "typecheck": "npm run css:types && tsc -b",
+    "lint": "npm run css:types && eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "css:types": "tcm src -p '**/*.module.css' -c -s",
