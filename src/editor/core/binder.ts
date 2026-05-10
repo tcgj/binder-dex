@@ -3,6 +3,7 @@ import type {
   BinderConfig,
   BinderPresetId,
   PageOverview,
+  PageSlot,
   SelectedSlotMeta,
   SlotAssignment,
 } from './types'
@@ -71,7 +72,7 @@ export function getSlotId(pageIndex: number, slotIndex: number) {
 
 export function createSlotAssignments(config: BinderConfig): SlotAssignment {
   const assignments: SlotAssignment = {}
-  const slotsPerPage = config.rows * config.columns
+  const slotsPerPage = getSlotsPerPage(config)
 
   for (let pageIndex = 0; pageIndex < config.pageCount; pageIndex += 1) {
     for (let slotIndex = 0; slotIndex < slotsPerPage; slotIndex += 1) {
@@ -101,20 +102,44 @@ export function mergeSlotAssignments(
   return nextAssignments
 }
 
+export function getSlotsPerPage(config: BinderConfig) {
+  return config.rows * config.columns
+}
+
+export function getTotalSlotCount(config: BinderConfig) {
+  return getSlotsPerPage(config) * config.pageCount
+}
+
+export function getFilledSlotCount(slotAssignments: SlotAssignment) {
+  return Object.values(slotAssignments).filter(Boolean).length
+}
+
+export function getPageSlots(
+  config: BinderConfig,
+  slotAssignments: SlotAssignment,
+  pageIndex: number,
+): PageSlot[] {
+  return Array.from({ length: getSlotsPerPage(config) }, (_, slotIndex) => {
+    const slotId = getSlotId(pageIndex, slotIndex)
+
+    return {
+      slotId,
+      slotIndex,
+      cardId: slotAssignments[slotId] ?? null,
+    }
+  })
+}
+
 export function getPageOverviews(
   config: BinderConfig,
   slotAssignments: SlotAssignment,
 ): PageOverview[] {
-  const slotsPerPage = config.rows * config.columns
+  const slotsPerPage = getSlotsPerPage(config)
 
   return Array.from({ length: config.pageCount }, (_, pageIndex) => {
-    let filledSlots = 0
-
-    for (let slotIndex = 0; slotIndex < slotsPerPage; slotIndex += 1) {
-      if (slotAssignments[getSlotId(pageIndex, slotIndex)]) {
-        filledSlots += 1
-      }
-    }
+    const filledSlots = getPageSlots(config, slotAssignments, pageIndex).filter(
+      ({ cardId }) => cardId,
+    ).length
 
     return {
       pageIndex,

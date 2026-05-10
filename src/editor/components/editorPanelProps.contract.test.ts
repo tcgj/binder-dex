@@ -45,6 +45,7 @@ const sidebar: EditorSidebarState = {
   config,
   filledSlots: 4,
   slotsPerPage: 9,
+  totalSlotCount: 108,
   pageOverviews: [{ pageIndex: 0, filledSlots: 4, totalSlots: 9 }],
   activePage: 0,
 }

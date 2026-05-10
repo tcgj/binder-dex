@@ -7,6 +7,7 @@ type BinderSetupPanelProps = {
   config: BinderConfig
   filledSlots: number
   slotsPerPage: number
+  totalSlotCount: number
   onPresetChange: (preset: BinderPresetId) => void
   onConfigChange: <K extends keyof BinderConfig>(
     key: K,
@@ -18,6 +19,7 @@ export function BinderSetupPanel({
   config,
   filledSlots,
   slotsPerPage,
+  totalSlotCount,
   onPresetChange,
   onConfigChange,
 }: BinderSetupPanelProps) {
@@ -180,7 +182,7 @@ export function BinderSetupPanel({
           </div>
           <div>
             <span>Total slots</span>
-            <strong>{slotsPerPage * config.pageCount}</strong>
+            <strong>{totalSlotCount}</strong>
           </div>
           <div>
             <span>Placed cards</span>

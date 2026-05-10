@@ -5,8 +5,11 @@ import {
   clamp,
   createSlotAssignments,
   defaultConfig,
+  getFilledSlotCount,
   getPageOverviews,
-  getSlotId,
+  getPageSlots,
+  getSlotsPerPage,
+  getTotalSlotCount,
   mergeSlotAssignments,
 } from '../core/binder'
 import type {
@@ -27,19 +30,12 @@ export function useBinderState(): EditorController {
   )
   const [activePage, setActivePage] = useState(0)
 
-  const slotsPerPage = config.rows * config.columns
+  const slotsPerPage = getSlotsPerPage(config)
+  const totalSlotCount = getTotalSlotCount(config)
 
   const currentPageSlots = useMemo<PageSlot[]>(() => {
-    return Array.from({ length: slotsPerPage }, (_, slotIndex) => {
-      const slotId = getSlotId(activePage, slotIndex)
-
-      return {
-        slotId,
-        slotIndex,
-        cardId: slotAssignments[slotId] ?? null,
-      }
-    })
-  }, [activePage, slotAssignments, slotsPerPage])
+    return getPageSlots(config, slotAssignments, activePage)
+  }, [activePage, config, slotAssignments])
 
   const cardsById = useMemo(
     () => Object.fromEntries(mockCards.map((card) => [card.id, card])),
@@ -47,7 +43,7 @@ export function useBinderState(): EditorController {
   )
 
   const filledSlots = useMemo(
-    () => Object.values(slotAssignments).filter(Boolean).length,
+    () => getFilledSlotCount(slotAssignments),
     [slotAssignments],
   )
 
@@ -110,6 +106,7 @@ export function useBinderState(): EditorController {
     config,
     filledSlots,
     slotsPerPage,
+    totalSlotCount,
     pageOverviews,
     activePage,
   }

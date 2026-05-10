@@ -40,6 +40,7 @@ export type EditorSidebarState = {
   config: BinderConfig
   filledSlots: number
   slotsPerPage: number
+  totalSlotCount: number
   pageOverviews: PageOverview[]
   activePage: number
 }
