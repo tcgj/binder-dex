@@ -10,43 +10,51 @@ type SelectedSlotState = {
   currentCardId: string | null
 }
 
-type CardsPanelProps = {
-  selectedSlot: SelectedSlotState
-  cardsById: Record<string, CardRecord>
+export type CardsPanelControls = {
   isOpen: boolean
   isToolsPanelOpen: boolean
-  onClose: () => void
-  onToggle: () => void
-  onAssignCardToSlot: (slotId: string, cardId: string) => void
-  onClearSlot: () => void
+  close: () => void
+  toggle: () => void
+}
+
+export type CardsPanelCardAssignment = {
+  assignCardToSlot: (slotId: string, cardId: string) => void
+  clearSelectedSlot: () => void
+}
+
+export type CardsPanelProps = {
+  selectedSlot: SelectedSlotState
+  cardsById: Record<string, CardRecord>
+  controls: CardsPanelControls
+  cardAssignment: CardsPanelCardAssignment
 }
 
 export function CardsPanel({
   selectedSlot,
   cardsById,
-  isOpen,
-  isToolsPanelOpen,
-  onClose,
-  onToggle,
-  onAssignCardToSlot,
-  onClearSlot,
+  controls,
+  cardAssignment,
 }: CardsPanelProps) {
   const panel = useCardsPanelState({
     selectedSlotId: selectedSlot.id,
     cardsById,
-    onAssignCardToSlot,
+    onAssignCardToSlot: cardAssignment.assignCardToSlot,
   })
 
   return (
     <>
       <aside
-        className={`${styles.cardsPanel} ${isOpen ? styles.cardsPanelOpen : ''}`}
+        className={`${styles.cardsPanel} ${
+          controls.isOpen ? styles.cardsPanelOpen : ''
+        }`}
       >
         <div
-          className={`${styles.rail} ${isToolsPanelOpen ? styles.railHidden : ''}`}
+          className={`${styles.rail} ${
+            controls.isToolsPanelOpen ? styles.railHidden : ''
+          }`}
           onClick={() => {
-            if (isOpen) {
-              onClose()
+            if (controls.isOpen) {
+              controls.close()
             }
           }}
         >
@@ -54,10 +62,12 @@ export function CardsPanel({
             className={styles.handle}
             onClick={(event) => {
               event.stopPropagation()
-              onToggle()
+              controls.toggle()
             }}
-            aria-label={isOpen ? 'Close cards panel' : 'Open cards panel'}
-            title={isOpen ? 'Close cards panel' : 'Open cards panel'}
+            aria-label={
+              controls.isOpen ? 'Close cards panel' : 'Open cards panel'
+            }
+            title={controls.isOpen ? 'Close cards panel' : 'Open cards panel'}
           >
             <span className={styles.handleIcon} aria-hidden="true">
               <span className={styles.handleGrid}>
@@ -85,15 +95,17 @@ export function CardsPanel({
               onCloseCardPreview={panel.closeCardPreview}
               onOpenCardBrowser={panel.openCardBrowser}
               onAssignPreviewCard={panel.assignPreviewCard}
-              onClearSlot={onClearSlot}
+              onClearSlot={cardAssignment.clearSelectedSlot}
             />
           </div>
         </div>
       </aside>
 
       <button
-        className={`${styles.backdrop} ${isOpen ? styles.backdropVisible : ''}`}
-        onClick={onClose}
+        className={`${styles.backdrop} ${
+          controls.isOpen ? styles.backdropVisible : ''
+        }`}
+        onClick={controls.close}
         aria-label="Close cards panel"
       />
     </>

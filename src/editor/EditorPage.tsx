@@ -22,13 +22,19 @@ export function EditorPage() {
     <div className={styles.appShell}>
       <ToolsPanel
         sidebar={binder.sidebar}
-        isOpen={editor.toolsPanel.isOpen}
-        isCardsPanelOpen={editor.cardsPanel.isOpen}
-        onClose={editor.toolsPanel.close}
-        onToggle={editor.toolsPanel.toggle}
-        onPresetChange={binder.actions.setBinderPreset}
-        onConfigChange={binder.actions.setConfigField}
-        onPageChange={binder.actions.goToPage}
+        controls={{
+          isOpen: editor.toolsPanel.isOpen,
+          isCardsPanelOpen: editor.cardsPanel.isOpen,
+          close: editor.toolsPanel.close,
+          toggle: editor.toolsPanel.toggle,
+        }}
+        binderSettings={{
+          setPreset: binder.actions.setBinderPreset,
+          setConfigField: binder.actions.setConfigField,
+        }}
+        pageNavigation={{
+          goToPage: binder.actions.goToPage,
+        }}
       />
 
       <main className={styles.pageShell}>
@@ -71,15 +77,19 @@ export function EditorPage() {
         key={editor.selectedSlot.id ?? 'browse'}
         selectedSlot={editor.selectedSlot}
         cardsById={binder.workspace.cardsById}
-        isOpen={editor.cardsPanel.isOpen}
-        isToolsPanelOpen={editor.toolsPanel.isOpen}
-        onClose={editor.cardsPanel.close}
-        onToggle={editor.cardsPanel.toggle}
-        onAssignCardToSlot={binder.actions.assignCardToSlot}
-        onClearSlot={() => {
-          if (editor.selectedSlot.id) {
-            binder.actions.clearSlotById(editor.selectedSlot.id)
-          }
+        controls={{
+          isOpen: editor.cardsPanel.isOpen,
+          isToolsPanelOpen: editor.toolsPanel.isOpen,
+          close: editor.cardsPanel.close,
+          toggle: editor.cardsPanel.toggle,
+        }}
+        cardAssignment={{
+          assignCardToSlot: binder.actions.assignCardToSlot,
+          clearSelectedSlot: () => {
+            if (editor.selectedSlot.id) {
+              binder.actions.clearSlotById(editor.selectedSlot.id)
+            }
+          },
         }}
       />
     </div>
