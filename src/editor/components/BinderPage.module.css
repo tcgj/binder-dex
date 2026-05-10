@@ -3,16 +3,23 @@
   --slot-gap: 10px;
   --slot-height-from-viewport: calc(
     (
-        100cqh - (var(--binder-padding) * 2) - ((var(--binder-rows) - 1) * var(--slot-gap))
-      ) / var(--binder-rows)
+        100cqh - (var(--binder-padding) * 2) -
+          ((var(--binder-rows) - 1) * var(--slot-gap))
+      ) /
+      var(--binder-rows)
   );
   --slot-width-from-viewport: calc(var(--slot-height-from-viewport) * 5 / 7);
   --slot-width-from-container: calc(
     (
-        100cqw - (var(--binder-padding) * 2) - ((var(--binder-columns) - 1) * var(--slot-gap))
-      ) / var(--binder-columns)
+        100cqw - (var(--binder-padding) * 2) -
+          ((var(--binder-columns) - 1) * var(--slot-gap))
+      ) /
+      var(--binder-columns)
   );
-  --slot-width: min(var(--slot-width-from-viewport), var(--slot-width-from-container));
+  --slot-width: min(
+    var(--slot-width-from-viewport),
+    var(--slot-width-from-container)
+  );
   position: relative;
   box-sizing: border-box;
   width: fit-content;

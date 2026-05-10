@@ -1,47 +1,49 @@
 import { RightPanel } from './RightPanel'
-import styles from './EditorInspector.module.css'
-import { useInspectorPanelState } from '../hooks/useInspectorPanelState'
+import styles from './CardsPanel.module.css'
+import { useCardsPanelState } from '../hooks/useCardsPanelState'
 import type { CardRecord } from '../../data/mockCards'
 import type { SelectedSlotMeta } from '../core/types'
 
-type InspectorViewState = {
-  selectedSlotId: string | null
-  selectedSlotMeta: SelectedSlotMeta | null
-  currentSlotCardId: string | null
+type SelectedSlotState = {
+  id: string | null
+  meta: SelectedSlotMeta | null
+  currentCardId: string | null
 }
 
-type EditorInspectorProps = {
-  inspector: InspectorViewState
+type CardsPanelProps = {
+  selectedSlot: SelectedSlotState
   cardsById: Record<string, CardRecord>
   isOpen: boolean
-  isDrawerBlocked: boolean
+  isToolsPanelOpen: boolean
   onClose: () => void
   onToggle: () => void
   onAssignCardToSlot: (slotId: string, cardId: string) => void
   onClearSlot: () => void
 }
 
-export function EditorInspector({
-  inspector,
+export function CardsPanel({
+  selectedSlot,
   cardsById,
   isOpen,
-  isDrawerBlocked,
+  isToolsPanelOpen,
   onClose,
   onToggle,
   onAssignCardToSlot,
   onClearSlot,
-}: EditorInspectorProps) {
-  const panel = useInspectorPanelState({
-    selectedSlotId: inspector.selectedSlotId,
+}: CardsPanelProps) {
+  const panel = useCardsPanelState({
+    selectedSlotId: selectedSlot.id,
     cardsById,
     onAssignCardToSlot,
   })
 
   return (
     <>
-      <aside className={`${styles.inspector} ${isOpen ? styles.inspectorOpen : ''}`}>
+      <aside
+        className={`${styles.cardsPanel} ${isOpen ? styles.cardsPanelOpen : ''}`}
+      >
         <div
-          className={`${styles.rail} ${isDrawerBlocked ? styles.railHidden : ''}`}
+          className={`${styles.rail} ${isToolsPanelOpen ? styles.railHidden : ''}`}
           onClick={() => {
             if (isOpen) {
               onClose()
@@ -72,8 +74,8 @@ export function EditorInspector({
           <div className={styles.content}>
             <RightPanel
               mode={panel.mode}
-              selectedSlotMeta={inspector.selectedSlotMeta}
-              currentSlotCardId={inspector.currentSlotCardId}
+              selectedSlotMeta={selectedSlot.meta}
+              currentSlotCardId={selectedSlot.currentCardId}
               previewCard={panel.previewCard}
               cardsById={cardsById}
               searchQuery={panel.searchQuery}
@@ -92,7 +94,7 @@ export function EditorInspector({
       <button
         className={`${styles.backdrop} ${isOpen ? styles.backdropVisible : ''}`}
         onClick={onClose}
-        aria-label="Close inspector"
+        aria-label="Close cards panel"
       />
     </>
   )

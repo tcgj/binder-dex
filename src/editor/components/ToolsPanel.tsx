@@ -1,12 +1,12 @@
 import { BinderSetupPanel } from './BinderSetupPanel'
 import { PageRail } from './PageRail'
-import styles from './EditorDrawer.module.css'
+import styles from './ToolsPanel.module.css'
 import type { EditorSidebarState } from '../core/types'
 
-type EditorDrawerProps = {
+type ToolsPanelProps = {
   sidebar: EditorSidebarState
   isOpen: boolean
-  isInspectorOpen: boolean
+  isCardsPanelOpen: boolean
   onClose: () => void
   onToggle: () => void
   onPresetChange: (preset: EditorSidebarState['config']['preset']) => void
@@ -17,19 +17,21 @@ type EditorDrawerProps = {
   onPageChange: (pageIndex: number) => void
 }
 
-export function EditorDrawer({
+export function ToolsPanel({
   sidebar,
   isOpen,
-  isInspectorOpen,
+  isCardsPanelOpen,
   onClose,
   onToggle,
   onPresetChange,
   onConfigChange,
   onPageChange,
-}: EditorDrawerProps) {
+}: ToolsPanelProps) {
   return (
     <>
-      <aside className={`${styles.drawer} ${isOpen ? styles.drawerOpen : ''}`}>
+      <aside
+        className={`${styles.toolsPanel} ${isOpen ? styles.toolsPanelOpen : ''}`}
+      >
         <div className={styles.surface}>
           <div className={styles.content}>
             <BinderSetupPanel
@@ -52,7 +54,7 @@ export function EditorDrawer({
         </div>
 
         <div
-          className={`${styles.rail} ${isInspectorOpen ? styles.railHidden : ''}`}
+          className={`${styles.rail} ${isCardsPanelOpen ? styles.railHidden : ''}`}
           onClick={() => {
             if (isOpen) {
               onClose()

@@ -1,4 +1,4 @@
-.drawer {
+.toolsPanel {
   position: relative;
   padding: 24px;
   background:
@@ -66,8 +66,8 @@
 }
 
 @media (max-width: 1280px) {
-  .drawer {
-    --drawer-surface-width: min(
+  .toolsPanel {
+    --tools-panel-surface-width: min(
       320px,
       calc(100vw - (var(--panel-gutter) * 2) - (var(--panel-tab-width) - 4px))
     );
@@ -75,7 +75,9 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: calc(var(--drawer-surface-width) + (var(--panel-tab-width) - 4px));
+    width: calc(
+      var(--tools-panel-surface-width) + (var(--panel-tab-width) - 4px)
+    );
     padding: 0;
     background: transparent;
     border-right: 0;
@@ -85,12 +87,12 @@
     transition: transform 180ms ease;
     display: grid;
     gap: 0;
-    grid-template-columns: var(--drawer-surface-width) calc(
+    grid-template-columns: var(--tools-panel-surface-width) calc(
         var(--panel-tab-width) - 4px
       );
   }
 
-  .drawerOpen {
+  .toolsPanelOpen {
     transform: translateX(0);
   }
 
@@ -128,7 +130,7 @@
     pointer-events: none;
   }
 
-  .drawerOpen .rail {
+  .toolsPanelOpen .rail {
     pointer-events: auto;
   }
 
@@ -170,7 +172,7 @@
     z-index: 0;
   }
 
-  .drawerOpen .handle {
+  .toolsPanelOpen .handle {
     top: 24px;
     right: 0;
     height: 64px;
@@ -179,17 +181,17 @@
     transform: translateX(calc(-100% + 12px));
   }
 
-  .drawerOpen .handle:hover,
-  .drawerOpen .handle:focus-visible {
+  .toolsPanelOpen .handle:hover,
+  .toolsPanelOpen .handle:focus-visible {
     transform: translateX(0);
   }
 
-  .drawerOpen .handleIcon {
+  .toolsPanelOpen .handleIcon {
     opacity: 0;
   }
 
-  .drawerOpen .handle:hover .handleIcon,
-  .drawerOpen .handle:focus-visible .handleIcon {
+  .toolsPanelOpen .handle:hover .handleIcon,
+  .toolsPanelOpen .handle:focus-visible .handleIcon {
     opacity: 1;
   }
 
@@ -224,7 +226,7 @@
     transform: translateY(-50%);
   }
 
-  .drawerOpen .handle {
+  .toolsPanelOpen .handle {
     top: 18px;
     right: 0;
     bottom: auto;

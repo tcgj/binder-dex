@@ -4,17 +4,17 @@ import { filterCards } from '../core/binder'
 import type { CardRecord } from '../../data/mockCards'
 import type { EditorMode } from '../core/types'
 
-type UseInspectorPanelStateArgs = {
+type UseCardsPanelStateArgs = {
   selectedSlotId: string | null
   cardsById: Record<string, CardRecord>
   onAssignCardToSlot: (slotId: string, cardId: string) => void
 }
 
-export function useInspectorPanelState({
+export function useCardsPanelState({
   selectedSlotId,
   cardsById,
   onAssignCardToSlot,
-}: UseInspectorPanelStateArgs) {
+}: UseCardsPanelStateArgs) {
   const [searchQuery, setSearchQuery] = useState('')
   const [previewCardId, setPreviewCardId] = useState<string | null>(null)
   const [isBrowsingSelection, setIsBrowsingSelection] = useState(false)

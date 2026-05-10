@@ -3,13 +3,19 @@ import { getSelectedSlotMeta } from '../core/binder'
 import type { SlotAssignment } from '../core/types'
 
 type UseEditorStateArgs = {
+  activePage: number
   slotAssignments: SlotAssignment
 }
 
-export function useEditorState({ slotAssignments }: UseEditorStateArgs) {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [isInspectorOpen, setIsInspectorOpen] = useState(false)
-  const [rawSelectedSlotId, setRawSelectedSlotId] = useState<string | null>(null)
+export function useEditorState({
+  activePage,
+  slotAssignments,
+}: UseEditorStateArgs) {
+  const [isToolsPanelOpen, setIsToolsPanelOpen] = useState(false)
+  const [isCardsPanelOpen, setIsCardsPanelOpen] = useState(false)
+  const [rawSelectedSlotId, setRawSelectedSlotId] = useState<string | null>(
+    null,
+  )
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -17,13 +23,13 @@ export function useEditorState({ slotAssignments }: UseEditorStateArgs) {
         return
       }
 
-      if (isInspectorOpen) {
-        setIsInspectorOpen(false)
+      if (isCardsPanelOpen) {
+        setIsCardsPanelOpen(false)
         return
       }
 
-      if (isDrawerOpen) {
-        setIsDrawerOpen(false)
+      if (isToolsPanelOpen) {
+        setIsToolsPanelOpen(false)
       }
     }
 
@@ -32,7 +38,7 @@ export function useEditorState({ slotAssignments }: UseEditorStateArgs) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isDrawerOpen, isInspectorOpen])
+  }, [isCardsPanelOpen, isToolsPanelOpen])
 
   const selectedSlotId =
     rawSelectedSlotId && rawSelectedSlotId in slotAssignments
@@ -44,27 +50,34 @@ export function useEditorState({ slotAssignments }: UseEditorStateArgs) {
     [selectedSlotId],
   )
 
-  const currentSlotCardId = selectedSlotId ? slotAssignments[selectedSlotId] : null
+  const currentSlotCardId = selectedSlotId
+    ? slotAssignments[selectedSlotId]
+    : null
 
   return {
-    drawer: {
-      isOpen: isDrawerOpen,
-      open: () => setIsDrawerOpen(true),
-      close: () => setIsDrawerOpen(false),
-      toggle: () => setIsDrawerOpen((current) => !current),
+    page: {
+      activePage,
     },
-    inspector: {
-      isOpen: isInspectorOpen,
-      selectedSlotId,
-      selectedSlotMeta,
-      currentSlotCardId,
-      open: () => setIsInspectorOpen(true),
-      close: () => setIsInspectorOpen(false),
-      toggle: () => setIsInspectorOpen((current) => !current),
-      selectSlot: (slotId: string) => {
+    toolsPanel: {
+      isOpen: isToolsPanelOpen,
+      open: () => setIsToolsPanelOpen(true),
+      close: () => setIsToolsPanelOpen(false),
+      toggle: () => setIsToolsPanelOpen((current) => !current),
+    },
+    cardsPanel: {
+      isOpen: isCardsPanelOpen,
+      open: () => setIsCardsPanelOpen(true),
+      close: () => setIsCardsPanelOpen(false),
+      toggle: () => setIsCardsPanelOpen((current) => !current),
+    },
+    selectedSlot: {
+      id: selectedSlotId,
+      meta: selectedSlotMeta,
+      currentCardId: currentSlotCardId,
+      select: (slotId: string) => {
         setRawSelectedSlotId(slotId)
       },
-      clearSelectedSlot: () => {
+      clear: () => {
         setRawSelectedSlotId(null)
       },
     },

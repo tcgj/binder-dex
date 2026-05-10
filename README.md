@@ -3,6 +3,7 @@
 A browser-based binder planning tool for trading card collections.
 
 The app is focused on a tool-first editor flow:
+
 - configure a binder layout with standard pocket presets or a custom grid
 - move through binder pages with a floating toolbar
 - inspect and assign cards into slots
@@ -13,9 +14,10 @@ The app is focused on a tool-first editor flow:
 This project is currently a frontend prototype built with React, TypeScript, and Vite.
 
 It includes:
+
 - binder presets for `4-pocket`, `9-pocket`, `12-pocket`, `16-pocket`, and `custom`
 - page-by-page binder navigation
-- a responsive editor shell with left tools drawer and right inspector drawer
+- a responsive editor shell with left tools panel and right cards panel
 - contextual card browsing and slot replacement flows
 - typed CSS Modules enforced in lint/build
 
@@ -35,13 +37,13 @@ Top-level editor structure:
 
 ```text
 EditorPage
-├─ EditorDrawer
+├─ ToolsPanel
 │  ├─ BinderSetupPanel
 │  └─ PageRail
 ├─ BinderPage
 │  └─ BinderSlot × N
 ├─ EditorToolbar
-└─ EditorInspector
+└─ CardsPanel
    └─ RightPanel
       ├─ BrowseCardsView
       ├─ CardPreviewView
@@ -49,10 +51,11 @@ EditorPage
 ```
 
 State is currently split into:
+
 - `useBinderState` for binder data and binder mutations
-- `useEditorState` for editor shell state and selected slot
+- `useEditorState` for page, tools panel, cards panel, and selected slot state
 - `useToolbarState` for toolbar-specific UI state
-- `useInspectorPanelState` for panel-local browse/preview flow
+- `useCardsPanelState` for panel-local browse/preview flow
 
 ## Development
 
@@ -69,6 +72,7 @@ npm run dev
 ```
 
 This starts:
+
 - Vite
 - CSS module type generation in watch mode
 
@@ -88,6 +92,7 @@ npm run format:check
 This repo uses generated `*.module.css.d.ts` files for CSS module class safety.
 
 They are treated as generated artifacts and are ignored by git. The relevant scripts are:
+
 - `npm run css:types`
 - `npm run css:types:watch`
 - `npm run css:types:check`
@@ -105,6 +110,7 @@ The Vite `base` setting is already configured for that path, and the GitHub Acti
 - [`.github/workflows/deploy-pages.yml`](./.github/workflows/deploy-pages.yml)
 
 To publish:
+
 1. Push to `main`
 2. In GitHub repository settings, configure Pages to deploy from `GitHub Actions`
 
@@ -117,7 +123,8 @@ https://<your-user>.github.io/binder-dex/
 ## Status
 
 This is still an active refactor/prototype. The main focus right now is:
+
 - improving reviewability of the editor architecture
-- tightening layout and drawer behavior
+- tightening layout and panel behavior
 - refining binder-page sizing and responsive behavior
-- continuing the inspector/browser interaction cleanup
+- continuing the cards/browser interaction cleanup
