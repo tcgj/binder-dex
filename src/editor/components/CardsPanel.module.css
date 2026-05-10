@@ -1,4 +1,4 @@
-.inspector {
+.cardsPanel {
   display: flex;
   min-width: 0;
   min-height: 0;
@@ -56,8 +56,8 @@
 }
 
 @media (max-width: 1280px) {
-  .inspector {
-    --inspector-surface-width: min(
+  .cardsPanel {
+    --cards-panel-surface-width: min(
       340px,
       calc(100vw - (var(--panel-gutter) * 2) - (var(--panel-tab-width) - 4px))
     );
@@ -66,19 +66,19 @@
     right: 0;
     bottom: 0;
     width: calc(
-      var(--inspector-surface-width) + (var(--panel-tab-width) - 4px)
+      var(--cards-panel-surface-width) + (var(--panel-tab-width) - 4px)
     );
     z-index: 40;
     transform: translateX(calc(100% - (var(--panel-tab-width) - 4px)));
     transition: transform 180ms ease;
     display: grid;
     grid-template-columns: calc(var(--panel-tab-width) - 4px) var(
-        --inspector-surface-width
+        --cards-panel-surface-width
       );
     align-items: stretch;
   }
 
-  .inspectorOpen {
+  .cardsPanelOpen {
     transform: translateX(0);
   }
 
@@ -89,7 +89,7 @@
     pointer-events: none;
   }
 
-  .inspectorOpen .rail {
+  .cardsPanelOpen .rail {
     pointer-events: auto;
   }
 
@@ -131,7 +131,7 @@
     z-index: 0;
   }
 
-  .inspectorOpen .handle {
+  .cardsPanelOpen .handle {
     top: 48px;
     left: 100%;
     height: 64px;
@@ -140,17 +140,17 @@
     transform: translateX(-12px);
   }
 
-  .inspectorOpen .handle:hover,
-  .inspectorOpen .handle:focus-visible {
+  .cardsPanelOpen .handle:hover,
+  .cardsPanelOpen .handle:focus-visible {
     transform: translateX(-100%);
   }
 
-  .inspectorOpen .handleIcon {
+  .cardsPanelOpen .handleIcon {
     opacity: 0;
   }
 
-  .inspectorOpen .handle:hover .handleIcon,
-  .inspectorOpen .handle:focus-visible .handleIcon {
+  .cardsPanelOpen .handle:hover .handleIcon,
+  .cardsPanelOpen .handle:focus-visible .handleIcon {
     opacity: 1;
   }
 
@@ -170,7 +170,7 @@
     transition: opacity 180ms ease;
   }
 
-  .inspectorOpen .content {
+  .cardsPanelOpen .content {
     opacity: 1;
     pointer-events: auto;
   }
@@ -201,7 +201,7 @@
     transform: translateY(-50%);
   }
 
-  .inspectorOpen .handle {
+  .cardsPanelOpen .handle {
     top: 42px;
     left: 100%;
     bottom: auto;
