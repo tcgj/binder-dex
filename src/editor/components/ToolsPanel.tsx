@@ -50,6 +50,7 @@ export function ToolsPanel({
               config={sidebar.config}
               filledSlots={sidebar.filledSlots}
               slotsPerPage={sidebar.slotsPerPage}
+              totalSlotCount={sidebar.totalSlotCount}
               onPresetChange={binderSettings.setPreset}
               onConfigChange={binderSettings.setConfigField}
             />
