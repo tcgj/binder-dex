@@ -4,15 +4,21 @@
       240px,
       300px
     );
+  grid-template-areas: 'tools page cards';
   height: 100dvh;
   min-height: 0;
   background: #d8e0cf;
   overflow-x: clip;
 }
 
+.toolsMount {
+  grid-area: tools;
+}
+
 .pageShell {
   box-sizing: border-box;
   display: grid;
+  grid-area: page;
   grid-template-rows: auto minmax(0, 1fr);
   gap: 20px;
   min-height: 0;
@@ -66,9 +72,14 @@
   overflow: auto;
 }
 
+.cardsMount {
+  grid-area: cards;
+}
+
 @media (max-width: 1280px) {
   .appShell {
     grid-template-columns: 1fr;
+    grid-template-areas: 'page';
   }
 }
 

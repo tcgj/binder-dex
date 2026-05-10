@@ -27,6 +27,7 @@ export type CardsPanelProps = {
   cardsById: Record<string, CardRecord>
   controls: CardsPanelControls
   cardAssignment: CardsPanelCardAssignment
+  className?: string
 }
 
 export function CardsPanel({
@@ -34,6 +35,7 @@ export function CardsPanel({
   cardsById,
   controls,
   cardAssignment,
+  className,
 }: CardsPanelProps) {
   const panel = useCardsPanelState({
     selectedSlotId: selectedSlot.id,
@@ -44,7 +46,7 @@ export function CardsPanel({
   return (
     <>
       <aside
-        className={`${styles.cardsPanel} ${
+        className={`${styles.cardsPanel} ${className ?? ''} ${
           controls.isOpen ? styles.cardsPanelOpen : ''
         }`}
       >

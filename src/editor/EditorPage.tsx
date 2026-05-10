@@ -1,8 +1,10 @@
 import styles from './EditorPage.module.css'
-import { BinderPage } from './components/BinderPage'
-import { CardsPanel } from './components/CardsPanel'
+import {
+  EditorCardsSection,
+  EditorMainContent,
+  EditorToolsSection,
+} from './components/EditorSections'
 import { EditorToolbar } from './components/EditorToolbar'
-import { ToolsPanel } from './components/ToolsPanel'
 import { useBinderState } from './hooks/useBinderState'
 import { useEditorState } from './hooks/useEditorState'
 import { useToolbarState } from './hooks/useToolbarState'
@@ -20,7 +22,28 @@ export function EditorPage() {
 
   return (
     <div className={styles.appShell}>
-      <ToolsPanel
+      <EditorMainContent
+        workspace={{
+          title: binder.workspace.title,
+          activePage: editor.page.activePage,
+          pageCount: binder.workspace.pageCount,
+          columns: binder.workspace.columns,
+          currentPageSlots: binder.workspace.currentPageSlots,
+          cardsById: binder.workspace.cardsById,
+        }}
+        selectedSlot={{
+          id: editor.selectedSlot.id,
+          select: editor.selectedSlot.select,
+        }}
+        display={{
+          showSlotDetails: toolbar.showSlotDetails,
+        }}
+        slotActions={{
+          clearSlotById: binder.actions.clearSlotById,
+        }}
+      />
+
+      <EditorToolsSection
         sidebar={binder.sidebar}
         controls={{
           isOpen: editor.toolsPanel.isOpen,
@@ -37,31 +60,6 @@ export function EditorPage() {
         }}
       />
 
-      <main className={styles.pageShell}>
-        <section className={styles.pageHeader}>
-          <div className={styles.contextBlock}>
-            <h2>{binder.workspace.title}</h2>
-            <p className={styles.pageContext}>
-              Page {editor.page.activePage + 1} of {binder.workspace.pageCount}
-            </p>
-          </div>
-        </section>
-
-        <section className={styles.pageViewport}>
-          <BinderPage
-            columns={binder.workspace.columns}
-            slots={binder.workspace.currentPageSlots}
-            selectedSlotId={editor.selectedSlot.id}
-            showSlotDetails={toolbar.showSlotDetails}
-            cardsById={binder.workspace.cardsById}
-            onSelectSlot={(slotId) => {
-              editor.selectedSlot.select(slotId)
-            }}
-            onClearSlot={binder.actions.clearSlotById}
-          />
-        </section>
-      </main>
-
       <EditorToolbar
         activePage={editor.page.activePage}
         pageCount={binder.workspace.pageCount}
@@ -73,7 +71,7 @@ export function EditorPage() {
         onToggleSlotDetails={toolbar.toggleSlotDetails}
       />
 
-      <CardsPanel
+      <EditorCardsSection
         key={editor.selectedSlot.id ?? 'browse'}
         selectedSlot={editor.selectedSlot}
         cardsById={binder.workspace.cardsById}
