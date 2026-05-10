@@ -27,6 +27,7 @@ export type ToolsPanelProps = {
   controls: ToolsPanelControls
   binderSettings: ToolsPanelBinderSettings
   pageNavigation: ToolsPanelPageNavigation
+  className?: string
 }
 
 export function ToolsPanel({
@@ -34,11 +35,12 @@ export function ToolsPanel({
   controls,
   binderSettings,
   pageNavigation,
+  className,
 }: ToolsPanelProps) {
   return (
     <>
       <aside
-        className={`${styles.toolsPanel} ${
+        className={`${styles.toolsPanel} ${className ?? ''} ${
           controls.isOpen ? styles.toolsPanelOpen : ''
         }`}
       >
